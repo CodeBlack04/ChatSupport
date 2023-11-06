@@ -28,9 +28,43 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+AUTH_USER_MODEL = 'myauth.User'
+
+# Login settings
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Channel settings
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+
+# Email settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tauhidur.rahman1517@gmail.com'
+EMAIL_HOST_PASSWORD = 'opxd hywv kydv lghw'
+DEFAULT_FROM_EMAIL = 'ChatSupport<no_reply@domain.com>'
+
+
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+
+    'core',
+    'myauth',
+    'support',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -67,6 +101,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = 'chatsupport.asgi.application'
 WSGI_APPLICATION = 'chatsupport.wsgi.application'
 
 
@@ -116,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
